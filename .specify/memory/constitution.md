@@ -1,50 +1,149 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- SYNC_IMPACT_REPORT
+## 版本变更
+- 旧版本：未设置
+- 新版本：1.0.0
 
-## Core Principles
+## 新增原则
+1. I. 代码质量标准 - 强制性代码质量要求
+2. II. 测试优先原则 - TDD强制性要求
+3. III. 用户体验一致性 - 前端交互标准
+4. IV. 性能需求规范 - 系统性能指标
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+## 新增章节
+1. 性能指标与监控 - 性能目标和监控要求
+2. 开发工作流程 - 代码审查和质量门禁
+3. 治理规则 - 合规性验证
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+## 待更新的模板
+- ✅ speckit.plan-template.md（需验证代码质量门禁）
+- ✅ speckit.spec-template.md（需包含性能/UX约束）
+- ✅ speckit.tasks-template.md（需包含测试和质量检查任务）
+-->
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+# 酒店评论系统 原则宪法
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+## 核心原则
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### I. 代码质量标准
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+代码质量是系统可靠性和可维护性的基础。本项目遵循以下非协商的质量要求：
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- **类型安全性**：MUST 使用 TypeScript，禁止 `any` 类型；所有公开 API MUST 具有完整的类型定义
+- **代码风格统一**：MUST 遵行 ESLint 配置；自动格式化工具（Prettier）配置为强制性
+- **代码复杂度限制**：单个函数的圈复杂度 MUST ≤ 10；超过此限制 MUST 进行重构或获得架构审批
+- **文档要求**：复杂逻辑 MUST 包含内联注释；所有公开函数 MUST 包含 JSDoc 文档
+- **依赖清洁**：禁止循环依赖；每月 MUST 进行一次依赖审计；直接依赖数量应 < 50
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**原理**：严格的代码质量标准减少 bug、提高可维护性、降低技术债务，为长期发展奠定基础。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### II. 测试优先原则（强制性）
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+测试驱动开发（TDD）是确保代码正确性的核心实践。本项目严格执行以下要求：
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- **单元测试覆盖率**：新代码 MUST ≥ 80% 覆盖率；整体项目 MUST ≥ 75%
+- **三层测试体系**：
+  - **单元测试**：函数级逻辑测试，使用 Vitest + React Testing Library
+  - **集成测试**：模块间交互测试，涵盖数据库操作、API 调用、UI 交互
+  - **端到端测试**：用户完整流程测试，使用真实场景覆盖关键业务路径
+- **测试流程**：测试先写 → 用户审批 → 测试失败 → 实现代码 → 红绿重构循环
+- **测试命名规范**：测试名称 MUST 描述预期行为，格式：`test('SHOULD [期望行为] WHEN [条件]')`
+- **Mock 管理**：MUST 使用工厂函数创建 mock 数据；禁止硬编码 mock 值
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**原理**：TDD 提前发现问题，确保代码质量，降低后期修复成本，建立长期开发信心。
+
+### III. 用户体验一致性
+
+用户体验的一致性直接影响产品可用性。本项目 MUST 遵守以下 UX 标准：
+
+- **视觉一致性**：MUST 使用统一的设计系统（Tailwind CSS 3.4）；禁止升级到 v4；所有组件须符合 UI Kit 规范
+- **交互一致性**：
+  - 相同操作 MUST 产生一致的视觉/交互反馈
+  - 加载状态 MUST 显示进度指示；错误信息 MUST 清晰且可操作
+  - 表单验证 MUST 实时反馈；成功/失败操作 MUST 有明确提示
+- **响应式设计**：MUST 支持 mobile（320px）、tablet（768px）、desktop（1024px+）
+- **无障碍性（A11y）**：MUST 符合 WCAG 2.1 AA 标准；包括键盘导航、屏幕阅读器支持
+- **国际化准备**：所有文本 MUST 使用 i18n 库；当前默认中文，预留英文支持
+
+**原理**：一致的 UX 提升用户满意度、降低学习成本、提高产品专业度。
+
+### IV. 性能需求规范
+
+系统性能直接影响用户体验和成本效率。本项目 MUST 满足以下性能指标：
+
+- **首屏加载时间（FCP）**：MUST ≤ 2.0 秒（桌面）、≤ 3.5 秒（移动）
+- **最大内容绘制（LCP）**：MUST ≤ 2.5 秒（桌面）、≤ 4.0 秒（移动）
+- **交互延迟（INP）**：MUST ≤ 200 毫秒，关键操作 MUST ≤ 100 毫秒
+- **API 响应时间**：SHOULD ≤ 500ms；MUST ≤ 1000ms；列表查询 MUST 使用分页（每页 ≤ 50 项）
+- **数据库查询**：复杂查询 MUST ≤ 200ms；MUST 配置索引，禁止全表扫描
+- **捆绑包大小**：JavaScript SHOULD ≤ 250KB（gzip）；MUST ≤ 400KB；使用代码分割优化
+- **实时性能监控**：MUST 集成 Web Vitals 和后端性能日志；每周审查性能数据
+
+**原理**：高性能系统提供良好用户体验、降低服务器成本、提高 SEO 排名。
+
+## 性能指标与监控
+
+为确保系统性能，本项目 MUST：
+
+- 每个功能发布前 MUST 进行性能基准测试
+- 使用 Lighthouse 工具定期审计（CI/CD 集成）
+- 配置 Sentry 进行实时错误和性能监控
+- InsForge 后端查询 MUST 使用 EXPLAIN ANALYZE 进行优化
+- 定期审查日志，识别瓶颈并优化
+
+## 开发工作流程
+
+### 代码审查（Code Review）
+
+- **强制性**：所有代码 MUST 经过 PR 审查，不允许直接提交到 main
+- **审查清单**：
+  - 代码风格符合 ESLint/Prettier
+  - 测试覆盖率达到要求
+  - 无 TypeScript 错误或 `any` 类型
+  - 性能影响评估（大改动需性能测试）
+  - 用户体验验证（UI 改动需 UI 走查）
+- **批准要求**：MUST 至少 1 名架构师/tech lead 批准；如涉及性能/安全，MUST 2 名批准
+
+### 质量门禁（Quality Gates）
+
+代码合并前 MUST 通过以下检查：
+
+1. **自动化检查**（CI/CD 自动执行）
+   - 所有测试 MUST 通过（100% 绿色）
+   - 代码覆盖率 MUST 满足最小要求（80% 新代码）
+   - 无 ESLint 错误
+   - 无 TypeScript 编译错误
+   - Lighthouse 评分 MUST ≥ 85
+
+2. **人工审查**（Code Review）
+   - 架构是否合理
+   - 是否遵循核心原则
+   - 性能影响评估
+
+## 治理规则
+
+### 原则的约束力
+
+本宪法 MUST 超越所有其他实践和指南。当宪法与其他文档冲突时，宪法优先。
+
+### 合规性验证
+
+- **PR 合并前**：所有 PR 必须验证是否满足代码质量、测试、性能、UX 一致性要求
+- **定期审计**：每月 MUST 进行一次项目级质量审计，检查：
+  - 代码复杂度趋势
+  - 测试覆盖率趋势
+  - 性能指标变化
+  - 技术债务累积
+- **原则修订**：原则修订 MUST：
+  1. 在 GitHub 讨论中发起并获得团队共识
+  2. 记录修订原因和影响分析
+  3. 制定至少 2 周的过渡期
+  4. 创建专门的迁移任务
+  5. 更新版本号并记录修改日期
+
+### 开发指南参考
+
+详见 [.AGENTS.md](./AGENTS.md) 获取运行时开发指南和工具配置。
+
+---
+
+**Version**: 1.0.0 | **Ratified**: 2026-04-10 | **Last Amended**: 2026-04-10
